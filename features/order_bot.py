@@ -14,7 +14,7 @@ from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 import undetected_chromedriver as uc
 
-from ..core.config import TeslaConfig, BolgeAyarlari
+from core.config import TeslaConfig, BolgeAyarlari
 from .inventory import EnvanterArac
 
 

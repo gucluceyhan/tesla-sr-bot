@@ -11,7 +11,7 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime
 from fake_useragent import UserAgent
 
-from ..core.config import (
+from core.config import (
     TeslaConfig, AracTercihi, RenkTercihi, 
     AracTipi, BolgeAyarlari
 )
