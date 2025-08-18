@@ -37,8 +37,8 @@ class KullaniciHesabi(BaseModel):
     """Tesla hesap bilgileri"""
     ad: str = Field(..., min_length=2, description="Kullanıcı adı")
     soyad: str = Field(..., min_length=2, description="Kullanıcı soyadı")
-    email: str = Field(..., regex=r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', description="E-posta adresi")
-    telefon: str = Field(..., regex=r'^\+?[0-9]{10,15}$', description="Telefon numarası")
+    email: str = Field(..., pattern=r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', description="E-posta adresi")
+    telefon: str = Field(..., pattern=r'^\+?[0-9]{10,15}$', description="Telefon numarası")
     
     @validator('telefon')
     def telefon_formati(cls, v):
@@ -64,11 +64,11 @@ class KullaniciHesabi(BaseModel):
 class KartBilgisi(BaseModel):
     """Ödeme kartı bilgileri"""
     kart_sahibi: str = Field(..., min_length=3, description="Kart üzerindeki isim")
-    kart_no: str = Field(..., regex=r'^[0-9]{16}$', description="16 haneli kart numarası")
+    kart_no: str = Field(..., pattern=r'^[0-9]{16}$', description="16 haneli kart numarası")
     son_kullanma_ay: int = Field(..., ge=1, le=12, description="Son kullanma ayı (1-12)")
     son_kullanma_yil: int = Field(..., ge=datetime.now().year, description="Son kullanma yılı")
-    cvv: str = Field(..., regex=r'^[0-9]{3}$', description="3 haneli güvenlik kodu")
-    fatura_posta_kodu: str = Field(..., regex=r'^[0-9]{5}$', description="Fatura posta kodu")
+    cvv: str = Field(..., pattern=r'^[0-9]{3}$', description="3 haneli güvenlik kodu")
+    fatura_posta_kodu: str = Field(..., pattern=r'^[0-9]{5}$', description="Fatura posta kodu")
     
     @validator('kart_no')
     def kart_no_dogrula(cls, v):
@@ -113,7 +113,7 @@ class AracTercihi(BaseModel):
         default=True,
         description="Otomatik koltuk rengi kuralı (kırmızı araç=standart, diğer=beyaz)"
     )
-    teslimat_posta_kodu: str = Field(..., regex=r'^[0-9]{5}$', description="Teslimat posta kodu")
+    teslimat_posta_kodu: str = Field(..., pattern=r'^[0-9]{5}$', description="Teslimat posta kodu")
     
     def koltuk_rengini_belirle(self, arac_rengi: str) -> KoltukRengi:
         """Araç rengine göre koltuk rengini belirle"""
@@ -143,7 +143,7 @@ class BotAyarlari(BaseModel):
     bot_korumalari: bool = Field(default=True, description="Bot tespit korumaları aktif")
     headless_mod: bool = Field(default=False, description="Tarayıcı headless modda çalışsın")
     debug_mod: bool = Field(default=False, description="Debug modunda çalıştır")
-    satis_baslangic_saati: str = Field(default="17:59", regex=r'^[0-2][0-9]:[0-5][0-9]$', description="Satış başlangıç saati")
+    satis_baslangic_saati: str = Field(default="17:59", pattern=r'^[0-2][0-9]:[0-5][0-9]$', description="Satış başlangıç saati")
     
     class Config:
         schema_extra = {
